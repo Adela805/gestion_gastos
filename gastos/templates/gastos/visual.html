@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mis gastos</title>
+</head>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <h1 class="text-center mb-4">💖 Mis Gastos</h1>
+
+    <div class="text-end mb-3">
+        <a class="btn btn-success" href="{% url 'crear' %}">+ Nuevo gasto</a>
+    </div>
+
+    {% if gastos %}
+        {% for gasto in gastos %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+
+                    <h5 class="card-title">{{ gasto.descripcion }}</h5>
+
+                    <p class="card-text">
+                        ✨ {{ gasto.monto }} <br>
+                        📅 {{ gasto.fecha }}
+                    </p>
+
+                    <a class="btn btn-warning btn-sm" href="{% url 'editar' gasto.id %}">
+                        Editar
+                    </a>
+
+                    <a class="btn btn-danger btn-sm" href="{% url 'eliminar' gasto.id %}">
+                        Eliminar
+                    </a>
+
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info text-center">
+            No hay gastos aún 😅 crea el primero
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
